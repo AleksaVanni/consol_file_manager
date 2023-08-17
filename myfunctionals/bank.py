@@ -1,7 +1,6 @@
 def bank_account():
     wallet_balance = 0
     purchase_history = []
-    history_price = []
 
     print("Мой кошелек")
     while True:
