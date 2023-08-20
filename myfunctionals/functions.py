@@ -66,6 +66,21 @@ def look_dir(path):
     print(os.listdir(path))  # просмотр содержимого рабочей директории
 
 
+def save_directory_contents_to_file(path):
+    files = []
+    dirs = []
+
+    for item in os.listdir(path):
+        if os.path.isfile(os.path.join(path, item)):
+            files.append(item)
+        else:
+            dirs.append(item)
+
+    with open('listdir.txt', 'w') as f:
+        f.write('files: ' + ', '.join(files) + '\n')
+        f.write('dirs: ' + ', '.join(dirs))
+
+
 def look_getcwd():
     print(f'Текущая рабочая директория: {os.getcwd()}')
     new_dir = input('Введите путь к новой рабочей директории: ')
@@ -79,12 +94,3 @@ def look_getcwd():
 def my_exit():
     import sys
     sys.exit("Выход из программы")
-
-
-
-
-
-
-
-
-
