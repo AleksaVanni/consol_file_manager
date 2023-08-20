@@ -1,6 +1,20 @@
+import os
+
 def bank_account():
+    FILE_WALLET_HISTORY = 'wallet_history.txt'
+    FILE_ORDERS_HISTORY = 'orders_history.txt'
+
     wallet_balance = 0
     purchase_history = []
+
+    if os.path.exists(FILE_WALLET_HISTORY):
+        with open(FILE_WALLET_HISTORY, 'r') as f:
+            wallet_balance = float(f.read())
+
+    if os.path.exists(FILE_ORDERS_HISTORY):
+        with open(FILE_ORDERS_HISTORY, 'r') as f:
+            for order in f:
+                purchase_history.append(order.replace('\n', ''))
 
     print("Мой кошелек")
     while True:
@@ -33,11 +47,19 @@ def bank_account():
 
         elif choice == '3':
             print("История покупок: ")
-            print(purchase_history)
+            for order in purchase_history:
+                print(order)
 
 
         elif choice == '4':
+            with open(FILE_WALLET_HISTORY, 'w') as f:
+                f.write(str(wallet_balance))
+
+            with open(FILE_ORDERS_HISTORY, 'w') as f:
+                for order in purchase_history:
+                    f.write(f'{order}\n')
             break
 
         else:
             print('Неверный пункт меню')
+
