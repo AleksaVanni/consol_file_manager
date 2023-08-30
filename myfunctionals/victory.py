@@ -34,4 +34,4 @@ def get_person_and_question():
 
 # print('__name__', __name__)
 if __name__ == '__main__':
-    print('Проверка фукцнии', get_random_person())
+    print('Проверка функции', get_random_person())
