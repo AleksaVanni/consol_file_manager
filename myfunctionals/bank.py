@@ -1,6 +1,7 @@
 import os
 
 def bank_account():
+
     FILE_WALLET_HISTORY = 'wallet_history.txt'
     FILE_ORDERS_HISTORY = 'orders_history.txt'
 
@@ -18,48 +19,51 @@ def bank_account():
 
     print("Мой кошелек")
     while True:
-        print("Баланс: ", wallet_balance)
-        print('1. пополнение счета')
-        print('2. покупка')
-        print('3. история покупок')
-        print('4. выход')
+        try:
+            print("Баланс: ", wallet_balance)
+            print('1. пополнение счета')
+            print('2. покупка')
+            print('3. история покупок')
+            print('4. выход')
 
-        choice = input('Выберите пункт меню: ')
-
-
-
-        if choice == '1':
-            print("Пополнение счета")
-            denaro = float(input("На какую сумму пополнить счет: "))
-            wallet_balance += denaro
+            choice = input('Выберите пункт меню: ')
 
 
-        elif choice == '2':
-            print("Покупка")
-            purchase = float(input('На какую сумму хотите совершить покупку?: '))
-            if purchase <= wallet_balance:
-                name_purchase = input("Введите название покупки: ")
-                wallet_balance -= purchase
-                purchase_history.append((name_purchase, purchase))
-            else:
-                print("Недостаточно средств")
+
+            if choice == '1':
+                print("Пополнение счета")
+                denaro = float(input("На какую сумму пополнить счет: "))
+                wallet_balance += denaro
 
 
-        elif choice == '3':
-            print("История покупок: ")
-            for order in purchase_history:
-                print(order)
+            elif choice == '2':
+                print("Покупка")
+                purchase = float(input('На какую сумму хотите совершить покупку?: '))
+                if purchase <= wallet_balance:
+                    name_purchase = input("Введите название покупки: ")
+                    wallet_balance -= purchase
+                    purchase_history.append((name_purchase, purchase))
+                else:
+                    print("Недостаточно средств")
 
 
-        elif choice == '4':
-            with open(FILE_WALLET_HISTORY, 'w') as f:
-                f.write(str(wallet_balance))
-
-            with open(FILE_ORDERS_HISTORY, 'w') as f:
+            elif choice == '3':
+                print("История покупок: ")
                 for order in purchase_history:
-                    f.write(f'{order}\n')
-            break
+                    print(order)
 
-        else:
-            print('Неверный пункт меню')
 
+            elif choice == '4':
+                with open(FILE_WALLET_HISTORY, 'w') as f:
+                    f.write(str(wallet_balance))
+
+                with open(FILE_ORDERS_HISTORY, 'w') as f:
+                    for order in purchase_history:
+                        f.write(f'{order}\n')
+                break
+
+            else:
+                print('Неверный пункт меню. Выберите пункт от 1 до 4.')
+
+        except ValueError:
+            print("Некорректный ввод. Введите число .....")
